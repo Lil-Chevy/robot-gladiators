@@ -89,6 +89,14 @@ for (var i = 0; i < enemyNames.length; i++) {
     enemyHealth = 50;
    // pass the pickedEnemyName variable's value into the fight function, where it will assume the value of the enemyName parameter
     fight(pickedEnemyName);
+    // player store
+    if ( playerHealth > 0 && i < enemyNames.length -1) {
+      // ask the player if they want to go to the store.
+      var  storeConfirm = window.confirm("The fight is over, visit the store before the next round?");
+      if (storeConfirm) {
+      shop();
+    }
+  }
   }
   // if player isn't alive, stop the game
   else {
@@ -114,5 +122,40 @@ window.alert("The game has now ended. Let's see how you did!");
     window.alert("Thank you for playing Robot Gladiators! come back soon.");
   }
 };
+
+// shop
+var shop = function() {
+  var shopOptionPrompt = window.prompt ("Would you like to REFILL your HEALTH, UPGRADE your attack, or LEAVE the store? Please enter one: 'REFILL', 'UPGRADE' or 'LEAVE'" );
+  switch (shopOptionPrompt) {
+    case "REFILL":
+    case "refill" : if (playerMoney >= 7) { window.alert("Refilling player's health by 20 for 7 dollars.");
+    // increase health and decrease money
+    playerHealth = playerHealth + 20;
+    playerMoney= playerMoney - 7;
+  } else {
+    window.alert("You do not have enough money for this!");
+  }
+    break;
+    // upgrade attack.
+    case "UPGRADE":
+    case "upgrade": if(playerMoney >= 7) { window.alert("Upgrading player's attack by 6 for 7 dollars");
+    // increasing players attack
+    playerAttack = playerAttack + 7;
+    playerMoney = playerMoney - 7;
+} else {
+  window.alert("You do not have enough money for this!");
+}
+    break;
+    // case default to leave.
+    case "LEAVE":
+    case "leave": window.alert("Leaving Store.");
+    break;
+    default: window.alert("you did not pick a valid option, try again.");
+    // calling shop again to force player to pick a valid option.
+    shop();
+    break;
+}
+};
+
 // start Game
 startGame();
