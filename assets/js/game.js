@@ -114,6 +114,5 @@ window.alert("The game has now ended. Let's see how you did!");
     window.alert("Thank you for playing Robot Gladiators! come back soon.");
   }
 };
-
 // start Game
 startGame();
