@@ -18,16 +18,12 @@ var fightOrSkip = function() {
     var confirmSkip = window.confirm("Are you sure you'd like to quit?");
     if (confirmSkip) {
       window.alert(playerInfo.name + " has decided to skip this fight. Goodbye!");
-      playerInfo.playerMoney = Math.max(0, playerInfo.money - 10);
+      playerInfo.money = Math.max(0, playerInfo.money - 10);
       return true;
-        }
-      while (playerInfo.health > 0 && enemy.health> 0) {
-        if (fightOrSkip()) {
-          break;
       }
     }
-  }
-}
+    return false;
+};
 
 // fight function (now with parameter for enemy's object holding name, health, and attack values)
 var fight = function(enemy) {
@@ -36,8 +32,9 @@ var fight = function(enemy) {
     var promptFight = window.prompt('Would you like to FIGHT or SKIP this battle? Enter "FIGHT" or "SKIP" to choose.');
 
    while (playerInfo.health > 0 && enemy.health > 0) {
-     fightOrSkip();
-     var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
+     if (fightOrSkip()); {
+       var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
+     }
    }
 
     // generate random damage value based on player's attack power
@@ -146,21 +143,18 @@ var endGame = function() {
 var shop = function() {
   // ask player what they'd like to do
   var shopOptionPrompt = window.prompt(
-    'Would you like to REFILL your health, UPGRADE your attack, or LEAVE the store? Please enter one "REFILL", "UPGRADE", or "LEAVE" to make a choice.'
+    'Would you like to REFILL your health, UPGRADE your attack, or LEAVE the store? Please enter one 1 for REFILL, 2 for UPGRADE, or 3 to LEAVE.'
   );
-
+  shopOptionPrompt = parseInt(shopOptionPrompt);
   // use switch case to carry out action
   switch (shopOptionPrompt) {
-    case 'REFILL':
-    case 'refill':
+    case 1:
       playerInfo.refillHealth();
       break;
-    case 'UPGRADE':
-    case 'upgrade':
+    case 2:
       playerInfo.upgradeAttack();
       break;
-    case 'LEAVE':
-    case 'leave':
+    case 3:
       window.alert('Leaving the store.');
 
       // do nothing, so function will end
